@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Color Guessing Game</title>
+    </head>
+    <body onload="guess_color()">
+        <script>
+
+            var game_finished = false;
+            var target_color;
+            var guess_color;
+            var colors;
+            var array_length;
+            var num_guesses = 0;
+            
+            function guess_color() {
+                var random_number = Math.random() * 3;
+                var random_number_integer = Math.floor(random_number);
+                colors = ["blue","cyan","gold","green","magenta","orange","red","white","yellow"];
+                target_color = colors[random_number_integer];
+                alert("Target Color is " + target_color);
+                
+                do{
+                    guess_color = prompt("I am thinking of one of these colors:\n" + 
+                        "blue, cyan, gold, green, magenta, orange, red, white, yellow \n " + 
+                        "What color am I thinking of ?");
+                    console.log(target_color);
+                    console.log(guess_color);
+                    game_finished = check_guess();
+                    num_guesses++;
+                }while(!game_finished)
+                if(game_finished){
+                    document.body.style.background = target_color;
+                    alert("Congratulations! You have guessed the color! \n " + 
+                        "It took you " + num_guesses + " guesses to finish the game! \n " +  
+                        "You can see the colour in the background.");
+                    
+                }
+            }
+            
+            function check_guess() {
+                //If the color entered by the player is not in the array of colors used by the game
+                var array_length = colors.length;
+                for (var i = 0; i < length; i++) {
+                    if(colors[i] !== guess_color){
+                        alert("Sorry, I don't recognize your color \n Please try again");
+                        return false;
+                    }
+                }
+                //If the color entered by the player is in the list of colors used by the game 
+                //but the color entered by the player is alphabetically higher than the answer
+                if(guess_color > target_color) {
+                    alert("Sorry, your guess is not correct \n " + 
+                        "Hint: your color is alphabetically higher than mine.\n " +  
+                        "Please try again");
+                    return false;
+
+                }
+                //If the color entered by the player is in the list of colors used by the game 
+                //but the color entered by the player is alphabetically lower than the answer
+                if(guess_color < target_color) {
+                    alert("Sorry, your guess is not correct \n " + 
+                        "Hint: your color is alphabetically lower than mine.\n " +  
+                        "Please try again");
+                    return false;
+                }
+                //If the color entered by the player is correct 
+                //the web page background is changed to that color and an appropriate message is shown
+                return true;
+
+            }
+        </script>
+    </body>
+</html>
